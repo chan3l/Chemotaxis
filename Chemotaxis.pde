@@ -5,14 +5,16 @@ void setup()
   colony = new Bacteria[20]; 
   for (int i =0; i<colony.length; i++)
     colony[i] = new Bacteria();
-  size(1000, 800);
+  size(1000, 750);
+  noStroke();
 }   
 void draw()   
 {    
   background((int)(Math.random()*256+1), (int)(Math.random()*256+1), (int)(Math.random()*256+1));
   for (int i=0; i<colony.length; i++)
   {
-    colony[i].move1();
+    colony[i].move();
+    colony[i].move2();
     colony[i].show();
   }
 }  
@@ -25,30 +27,32 @@ class Bacteria
   int yb;
   Bacteria() {
     myX=500;
-    myY=400;
+    myY=375;
     y2 = 100;
     xb=500;
     yb = 400;
   }
-  void move1() {
-      myX = myX+(int)(Math.random()*20-10);
-      myY = myY+(int)(Math.random()*20-10);
-  }
   void move() {
-    if (mouseX>myX)
-    {
-      xb= 0;
-    } else
-      xb= 10;
-    if (mouseY>myY)
-    {
-      yb=0;
-    } else
-    {
-      yb=10;
+    myX = myX+(int)(Math.random()*20-10);
+    myY = myY+(int)(Math.random()*20-10);
+  }
+  void move2() {
+    if (mousePressed) {
+      if (mouseX>myX)
+      {
+        xb= 0;
+      } else
+        xb= 10;
+      if (mouseY>myY)
+      {
+        yb=0;
+      } else
+      {
+        yb=10;
+      }
+      myX = myX+(int)(Math.random()*11-xb);
+      myY = myY+(int)(Math.random()*11-yb);
     }
-    myX = myX+(int)(Math.random()*11-xb);
-    myY = myY+(int)(Math.random()*11-yb);
   }
   void show() {
     fill((int)(Math.random()*256+1), (int)(Math.random()*256+1), (int)(Math.random()*256+1));
@@ -61,6 +65,7 @@ class Bacteria
     } else {
       y2=100;
     }
+    fill((int)(Math.random()*256+1), (int)(Math.random()*256+1), (int)(Math.random()*256+1),(int)(Math.random()*256+1));
     ellipse(myX, myY, 100, 100);
   }
 }    
